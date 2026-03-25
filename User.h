@@ -1,19 +1,18 @@
 #pragma once
 #include <string>
-using namespace std;
 
 class User {
 private:
     int id;
-    string name;
-    string email;
+    std::string name;
+    std::string email;
 
 public:
-    User(int id, string name, string email);
+    User(int id, std::string name, std::string email);
 
     int getId() const;
-    string getName() const;
-    string getEmail() const;
+    std::string getName() const;
+    std::string getEmail() const;
 
     void display() const;
 };

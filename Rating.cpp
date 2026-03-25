@@ -1,6 +1,5 @@
 #include "Rating.h"
 #include <iostream>
-using namespace std;
 
 Rating::Rating(int userId, int movieId, double score)
     : userId(userId), movieId(movieId) {
@@ -24,7 +23,7 @@ double Rating::getScore() const {
 }
 
 void Rating::display() const {
-    cout << "User ID: " << userId << endl;
-    cout << "Movie ID: " << movieId << endl;
-    cout << "Score: " << score << endl;
+    std::cout << "User ID: " << userId << std::endl;
+    std::cout << "Movie ID: " << movieId << std::endl;
+    std::cout << "Score: " << score << std::endl;
 }

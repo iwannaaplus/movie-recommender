@@ -1,12 +1,11 @@
 #include "Movie.h"
 #include <iostream>
-using namespace std;
 
 Movie::Movie()
     : id(0), title(""), genre(""), year(0), totalRating(0.0), ratingCount(0) {
 }
 
-Movie::Movie(int id, string title, string genre, int year)
+Movie::Movie(int id, std::string title, std::string genre, int year)
     : id(id), title(title), genre(genre), year(year), totalRating(0.0), ratingCount(0) {
 }
 
@@ -14,11 +13,11 @@ int Movie::getId() const {
     return id;
 }
 
-string Movie::getTitle() const {
+std::string Movie::getTitle() const {
     return title;
 }
 
-string Movie::getGenre() const {
+std::string Movie::getGenre() const {
     return genre;
 }
 
@@ -41,9 +40,9 @@ void Movie::addRating(double rating) {
 }
 
 void Movie::display() const {
-    cout << "ID: " << id << endl;
-    cout << "Title: " << title << endl;
-    cout << "Genre: " << genre << endl;
-    cout << "Year: " << year << endl;
-    cout << "Average Rating: " << getAverageRating() << endl;
+    std::cout << "ID: " << id << std::endl;
+    std::cout << "Title: " << title << std::endl;
+    std::cout << "Genre: " << genre << std::endl;
+    std::cout << "Year: " << year << std::endl;
+    std::cout << "Average Rating: " << getAverageRating() << std::endl;
 }

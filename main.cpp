@@ -3,10 +3,9 @@
 #include "Movie.h"
 #include "User.h"
 #include "Rating.h"
-using namespace std;
 
 int main() {
-    vector<Movie> movies;
+    std::vector<Movie> movies;
 
     Movie m1(1, "Inception", "SF", 2010);
     Movie m2(2, "Parasite", "Thriller", 2019);
@@ -25,23 +24,23 @@ int main() {
     movies[0].addRating(r2.getScore());
     movies[1].addRating(r3.getScore());
 
-    cout << "=== Movie List ===" << endl;
+    std::cout << "=== Movie List ===" << std::endl;
     for (int i = 0; i < movies.size(); i++) {
         movies[i].display();
-        cout << endl;
+        std::cout << std::endl;
     }
 
-    cout << "=== User Info ===" << endl;
+    std::cout << "=== User Info ===" << std::endl;
     u1.display();
-    cout << endl;
+    std::cout << std::endl;
     u2.display();
-    cout << endl;
+    std::cout << std::endl;
 
-    cout << "=== Rating Info ===" << endl;
+    std::cout << "=== Rating Info ===" << std::endl;
     r1.display();
-    cout << endl;
+    std::cout << std::endl;
     r2.display();
-    cout << endl;
+    std::cout << std::endl;
     r3.display();
 
     return 0;
