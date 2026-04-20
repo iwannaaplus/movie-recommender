@@ -22,4 +22,8 @@ public:
 
     void addRating(double rating);
     void display() const;
+    
+    bool operator==(const Movie& other) const;
+    bool operator<(const Movie& other) const;
+    friend std::ostream& operator<<(std::ostream& os, const Movie& m);
 };

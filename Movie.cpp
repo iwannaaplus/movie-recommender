@@ -38,11 +38,23 @@ void Movie::addRating(double rating) {
         ratingCount++;
     }
 }
-
 void Movie::display() const {
     std::cout << "ID: " << id << std::endl;
     std::cout << "Title: " << title << std::endl;
     std::cout << "Genre: " << genre << std::endl;
     std::cout << "Year: " << year << std::endl;
     std::cout << "Average Rating: " << getAverageRating() << std::endl;
+}
+bool Movie::operator==(const Movie& other) const {
+    return this->title == other.title
+        && this->year == other.year;
+}
+bool Movie::operator<(const Movie& other) const {
+    return this->getAverageRating() < other.getAverageRating();
+}
+std::ostream& operator<<(std::ostream& os, const Movie& m) {
+    os << m.getId() << ". " << m.getTitle()
+       << " (" << m.getYear() << ") "
+       << "평점: " << m.getAverageRating();
+    return os;
 }
