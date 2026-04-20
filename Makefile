@@ -3,7 +3,7 @@ CXXFLAGS = -std=c++17 -Wall
 
 TARGET = app
 
-SRCS = main.cpp Movie.cpp User.cpp Rating.cpp
+SRCS = main.cpp Movie.cpp User.cpp Rating.cpp MovieManager.cpp 
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGET)

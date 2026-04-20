@@ -1,17 +1,17 @@
 #include <iostream>
-#include <vector>
 #include "Movie.h"
 #include "User.h"
 #include "Rating.h"
+#include "MovieManager.h"
 
 int main() {
-    std::vector<Movie> movies;
+    MovieManager manager;
 
     Movie m1(1, "Inception", "SF", 2010);
     Movie m2(2, "Parasite", "Thriller", 2019);
 
-    movies.push_back(m1);
-    movies.push_back(m2);
+    manager.addMovie(m1);
+    manager.addMovie(m2);
 
     User u1(101, "Kim", "kim@example.com");
     User u2(102, "Lee", "lee@example.com");
@@ -20,15 +20,21 @@ int main() {
     Rating r2(102, 1, 5.0);
     Rating r3(101, 2, 4.0);
 
-    movies[0].addRating(r1.getScore());
-    movies[0].addRating(r2.getScore());
-    movies[1].addRating(r3.getScore());
+    Movie* movie1 = manager.findByTitle("Inception");
+    Movie* movie2 = manager.findByTitle("Parasite");
+
+    if (movie1 != nullptr) {
+        movie1->addRating(r1.getScore());
+        movie1->addRating(r2.getScore());
+    }
+
+    if (movie2 != nullptr) {
+        movie2->addRating(r3.getScore());
+    }
 
     std::cout << "=== Movie List ===" << std::endl;
-    for (int i = 0; i < movies.size(); i++) {
-        movies[i].display();
-        std::cout << std::endl;
-    }
+    manager.printAll();
+    std::cout << std::endl;
 
     std::cout << "=== User Info ===" << std::endl;
     u1.display();
