@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "Movie.h"
 #include "User.h"
 #include "Rating.h"
@@ -11,45 +12,117 @@ int main() {
     UserManager userManager;
     RatingManager ratingManager;
 
-    Movie m1(1, "Inception", "SF", 2010);
-    Movie m2(2, "Parasite", "Thriller", 2019);
+    int choice;
 
-    manager.addMovie(m1);
-    manager.addMovie(m2);
+    while (true) {
+        std::cout << "=== Movie Recommender ===" << std::endl;
+        std::cout << "[ 영화 ]" << std::endl;
+        std::cout << "1. 영화 추가" << std::endl;
+        std::cout << "2. 제목 검색" << std::endl;
+        std::cout << "3. 전체 출력" << std::endl;
+        std::cout << "4. 평점순 출력" << std::endl;
+        std::cout << "[ 사용자 ]" << std::endl;
+        std::cout << "5. 사용자 추가" << std::endl;
+        std::cout << "6. 사용자 출력" << std::endl;
+        std::cout << "[ 평점 ]" << std::endl;
+        std::cout << "7. 평점 입력" << std::endl;
+        std::cout << "8. 평점 출력" << std::endl;
+        std::cout << "0. 종료" << std::endl;
+        std::cout << "선택 > ";
 
-    userManager.addUser(User(101, "Kim", "kim@example.com"));
-    userManager.addUser(User(102, "Lee", "lee@example.com"));
+        std::cin >> choice;
 
-    Rating r1(101, 1, 4.5);
-    Rating r2(102, 1, 5.0);
-    Rating r3(101, 2, 4.0);
+        if (choice == 0) break;
 
-    ratingManager.addRating(r1);
-    ratingManager.addRating(r2);
-    ratingManager.addRating(r3);
+        if (choice == 1) {
+            int id, year;
+            std::string title, genre;
 
-    Movie* movie1 = manager.findByTitle("Inception");
-    Movie* movie2 = manager.findByTitle("Parasite");
+            std::cout << "ID: ";
+            std::cin >> id;
+            std::cin.ignore();
 
-    if (movie1 != nullptr) {
-        movie1->addRating(r1.getScore());
-        movie1->addRating(r2.getScore());
+            std::cout << "제목: ";
+            std::getline(std::cin, title);
+
+            std::cout << "장르: ";
+            std::getline(std::cin, genre);
+
+            std::cout << "연도: ";
+            std::cin >> year;
+
+            manager.addMovie(Movie(id, title, genre, year));
+        }
+
+        else if (choice == 2) {
+            std::string title;
+            std::cin.ignore();
+
+            std::cout << "검색할 제목: ";
+            std::getline(std::cin, title);
+
+            Movie* m = manager.findByTitle(title);
+
+            if (m != nullptr) m->display();
+            else std::cout << "없음" << std::endl;
+        }
+
+        else if (choice == 3) {
+            manager.printAll();
+        }
+
+        else if (choice == 4) {
+            manager.sortByRating();
+            manager.printAll();
+        }
+
+        else if (choice == 5) {
+            int id;
+            std::string name, email;
+
+            std::cout << "ID: ";
+            std::cin >> id;
+            std::cin.ignore();
+
+            std::cout << "이름: ";
+            std::getline(std::cin, name);
+
+            std::cout << "이메일: ";
+            std::getline(std::cin, email);
+
+            userManager.addUser(User(id, name, email));
+        }
+
+        else if (choice == 6) {
+            userManager.printAll();
+        }
+
+        else if (choice == 7) {
+            int userId, movieId;
+            double score;
+
+            std::cout << "사용자 ID: ";
+            std::cin >> userId;
+            std::cout << "영화 ID: ";
+            std::cin >> movieId;
+            std::cout << "평점: ";
+            std::cin >> score;
+
+            Rating r(userId, movieId, score);
+            ratingManager.addRating(r);
+
+            Movie* m = manager.findById(movieId);
+            if (m != nullptr) {
+                m->addRating(score);
+            }
+        }
+
+        else if (choice == 8) {
+            ratingManager.printAll();
+        }
+
+        std::cout << std::endl;
     }
-
-    if (movie2 != nullptr) {
-        movie2->addRating(r3.getScore());
-    }
-
-    std::cout << "=== Movie List ===" << std::endl;
-    manager.printAll();
-    std::cout << std::endl;
-
-    std::cout << "=== User Info ===" << std::endl;
-    userManager.printAll();
-    std::cout << std::endl;
-
-    std::cout << "=== Rating Info ===" << std::endl;
-    ratingManager.printAll();
 
     return 0;
 }
