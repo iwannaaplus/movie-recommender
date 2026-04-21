@@ -4,10 +4,12 @@
 #include "Rating.h"
 #include "MovieManager.h"
 #include "UserManager.h"
+#include "RatingManager.h"
 
 int main() {
     MovieManager manager;
     UserManager userManager;
+    RatingManager ratingManager;
 
     Movie m1(1, "Inception", "SF", 2010);
     Movie m2(2, "Parasite", "Thriller", 2019);
@@ -21,6 +23,10 @@ int main() {
     Rating r1(101, 1, 4.5);
     Rating r2(102, 1, 5.0);
     Rating r3(101, 2, 4.0);
+
+    ratingManager.addRating(r1);
+    ratingManager.addRating(r2);
+    ratingManager.addRating(r3);
 
     Movie* movie1 = manager.findByTitle("Inception");
     Movie* movie2 = manager.findByTitle("Parasite");
@@ -40,15 +46,10 @@ int main() {
 
     std::cout << "=== User Info ===" << std::endl;
     userManager.printAll();
-
     std::cout << std::endl;
 
     std::cout << "=== Rating Info ===" << std::endl;
-    r1.display();
-    std::cout << std::endl;
-    r2.display();
-    std::cout << std::endl;
-    r3.display();
+    ratingManager.printAll();
 
     return 0;
 }
