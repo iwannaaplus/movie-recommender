@@ -3,9 +3,11 @@
 #include "User.h"
 #include "Rating.h"
 #include "MovieManager.h"
+#include "UserManager.h"
 
 int main() {
     MovieManager manager;
+    UserManager userManager;
 
     Movie m1(1, "Inception", "SF", 2010);
     Movie m2(2, "Parasite", "Thriller", 2019);
@@ -13,8 +15,8 @@ int main() {
     manager.addMovie(m1);
     manager.addMovie(m2);
 
-    User u1(101, "Kim", "kim@example.com");
-    User u2(102, "Lee", "lee@example.com");
+    userManager.addUser(User(101, "Kim", "kim@example.com"));
+    userManager.addUser(User(102, "Lee", "lee@example.com"));
 
     Rating r1(101, 1, 4.5);
     Rating r2(102, 1, 5.0);
@@ -37,9 +39,8 @@ int main() {
     std::cout << std::endl;
 
     std::cout << "=== User Info ===" << std::endl;
-    u1.display();
-    std::cout << std::endl;
-    u2.display();
+    userManager.printAll();
+
     std::cout << std::endl;
 
     std::cout << "=== Rating Info ===" << std::endl;
