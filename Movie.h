@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Movie {
 private:
@@ -21,9 +22,9 @@ public:
     double getAverageRating() const;
 
     void addRating(double rating);
-    void display() const;
-    
+
     bool operator==(const Movie& other) const;
     bool operator<(const Movie& other) const;
+
     friend std::ostream& operator<<(std::ostream& os, const Movie& m);
 };

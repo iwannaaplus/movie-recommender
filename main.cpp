@@ -63,7 +63,7 @@ int main() {
 
             Movie* m = manager.findByTitle(title);
 
-            if (m != nullptr) m->display();
+            if (m != nullptr) std::cout << *m << std::endl;
             else std::cout << "없음" << std::endl;
         }
 
