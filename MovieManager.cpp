@@ -33,3 +33,36 @@ Movie* MovieManager::findById(int id) {
 void MovieManager::sortByRating() {
     std::sort(movies.begin(), movies.end());
 }
+
+void MovieManager::addMovieFromInput() {
+    int id, year;
+    std::string title, genre;
+
+    std::cout << "ID: ";
+    std::cin >> id;
+    std::cin.ignore();
+
+    std::cout << "제목: ";
+    std::getline(std::cin, title);
+
+    std::cout << "장르: ";
+    std::getline(std::cin, genre);
+
+    std::cout << "연도: ";
+    std::cin >> year;
+
+    addMovie(Movie(id, title, genre, year));
+}
+
+void MovieManager::searchMovie() {
+    std::string title;
+    std::cin.ignore();
+
+    std::cout << "검색할 제목: ";
+    std::getline(std::cin, title);
+
+    Movie* m = findByTitle(title);
+
+    if (m != nullptr) std::cout << *m << std::endl;
+    else std::cout << "없음" << std::endl;
+}

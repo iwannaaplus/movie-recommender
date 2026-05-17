@@ -35,36 +35,11 @@ int main() {
         if (choice == 0) break;
 
         if (choice == 1) {
-            int id, year;
-            std::string title, genre;
-
-            std::cout << "ID: ";
-            std::cin >> id;
-            std::cin.ignore();
-
-            std::cout << "제목: ";
-            std::getline(std::cin, title);
-
-            std::cout << "장르: ";
-            std::getline(std::cin, genre);
-
-            std::cout << "연도: ";
-            std::cin >> year;
-
-            manager.addMovie(Movie(id, title, genre, year));
+            manager.addMovieFromInput();
         }
 
         else if (choice == 2) {
-            std::string title;
-            std::cin.ignore();
-
-            std::cout << "검색할 제목: ";
-            std::getline(std::cin, title);
-
-            Movie* m = manager.findByTitle(title);
-
-            if (m != nullptr) std::cout << *m << std::endl;
-            else std::cout << "없음" << std::endl;
+            manager.searchMovie();
         }
 
         else if (choice == 3) {
@@ -77,20 +52,7 @@ int main() {
         }
 
         else if (choice == 5) {
-            int id;
-            std::string name, email;
-
-            std::cout << "ID: ";
-            std::cin >> id;
-            std::cin.ignore();
-
-            std::cout << "이름: ";
-            std::getline(std::cin, name);
-
-            std::cout << "이메일: ";
-            std::getline(std::cin, email);
-
-            userManager.addUser(User(id, name, email));
+            userManager.addUserFromInput();
         }
 
         else if (choice == 6) {
@@ -98,23 +60,7 @@ int main() {
         }
 
         else if (choice == 7) {
-            int userId, movieId;
-            double score;
-
-            std::cout << "사용자 ID: ";
-            std::cin >> userId;
-            std::cout << "영화 ID: ";
-            std::cin >> movieId;
-            std::cout << "평점: ";
-            std::cin >> score;
-
-            Rating r(userId, movieId, score);
-            ratingManager.addRating(r);
-
-            Movie* m = manager.findById(movieId);
-            if (m != nullptr) {
-                m->addRating(score);
-            }
+            ratingManager.addRatingFromInput(manager);
         }
 
         else if (choice == 8) {

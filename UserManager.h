@@ -9,4 +9,6 @@ private:
 public:
     void addUser(const User& u);
     void printAll() const;
+
+    void addUserFromInput();
 };

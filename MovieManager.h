@@ -13,4 +13,7 @@ public:
     Movie* findByTitle(const std::string& title);
     Movie* findById(int id);
     void sortByRating();
+
+    void addMovieFromInput();
+    void searchMovie();
 };

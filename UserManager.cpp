@@ -11,3 +11,20 @@ void UserManager::printAll() const {
         std::cout << std::endl;
     }
 }
+
+void UserManager::addUserFromInput() {
+    int id;
+    std::string name, email;
+
+    std::cout << "ID: ";
+    std::cin >> id;
+    std::cin.ignore();
+
+    std::cout << "이름: ";
+    std::getline(std::cin, name);
+
+    std::cout << "이메일: ";
+    std::getline(std::cin, email);
+
+    addUser(User(id, name, email));
+}
