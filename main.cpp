@@ -6,6 +6,7 @@
 #include "MovieManager.h"
 #include "UserManager.h"
 #include "RatingManager.h"
+#include "Recommender.h"
 
 int main() {
     MovieManager manager;
@@ -31,6 +32,8 @@ int main() {
         std::cout << "[ 평점 ]" << std::endl;
         std::cout << "7. 평점 입력" << std::endl;
         std::cout << "8. 평점 출력" << std::endl;
+        std::cout << "[ 추천 ]" << std::endl;
+        std::cout << "9. 개인 맞춤 영화 추천" << std::endl;
         std::cout << "0. 종료" << std::endl;
         std::cout << "선택 > ";
 
@@ -41,34 +44,42 @@ int main() {
         if (choice == 1) {
             manager.addMovieFromInput();
         }
-
         else if (choice == 2) {
             manager.searchMovie();
         }
-
         else if (choice == 3) {
             manager.printAll();
         }
-
         else if (choice == 4) {
             manager.sortByRating();
             manager.printAll();
         }
-
         else if (choice == 5) {
             userManager.addUserFromInput();
         }
-
         else if (choice == 6) {
             userManager.printAll();
         }
-
         else if (choice == 7) {
             ratingManager.addRatingFromInput();
         }
-
         else if (choice == 8) {
             ratingManager.printAll();
+        }
+        else if (choice == 9) {
+            int targetUid;
+            std::cout << "추천을 받을 사용자 ID 입력: ";
+            std::cin >> targetUid;
+
+            std::vector<Movie> recs = Recommender::recommend(targetUid, manager, ratingManager);
+            if (recs.empty()) {
+                std::cout << "추천할 만한 영화가 없거나 비슷한 사용자를 찾을 수 없습니다." << std::endl;
+            } else {
+                std::cout << "=== [추천 리스트] ===" << std::endl;
+                for (const auto& m : recs) {
+                    std::cout << m << std::endl;
+                }
+            }
         }
 
         std::cout << std::endl;
