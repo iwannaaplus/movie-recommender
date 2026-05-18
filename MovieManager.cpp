@@ -67,6 +67,13 @@ void MovieManager::searchMovie() {
     else std::cout << "없음" << std::endl;
 }
 
+void MovieManager::updateMovieRating(int movieId, double score) {
+    Movie* m = findById(movieId);
+    if (m != nullptr) {
+        m->addRating(score);
+    }
+}
+
 void MovieManager::loadFromFile(const std::string& filename) {
 }
 

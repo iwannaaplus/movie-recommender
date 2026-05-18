@@ -12,7 +12,7 @@ void RatingManager::printAll() const {
     }
 }
 
-void RatingManager::addRatingFromInput(MovieManager& manager) {
+void RatingManager::addRatingFromInput() {
     int userId, movieId;
     double score;
 
@@ -25,11 +25,6 @@ void RatingManager::addRatingFromInput(MovieManager& manager) {
 
     Rating r(userId, movieId, score);
     ratings.push_back(r);
-
-    Movie* m = manager.findById(movieId);
-    if (m != nullptr) {
-        m->addRating(score);
-    }
 }
 
 void RatingManager::loadFromFile(const std::string& filename) {

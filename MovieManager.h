@@ -17,6 +17,7 @@ public:
 
     void addMovieFromInput();
     void searchMovie();
+    void updateMovieRating(int movieId, double score);
 
     void loadFromFile(const std::string& filename) override;
     void saveToFile(const std::string& filename) const override;

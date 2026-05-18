@@ -60,7 +60,7 @@ int main() {
         }
 
         else if (choice == 7) {
-            ratingManager.addRatingFromInput(manager);
+            ratingManager.addRatingFromInput();
         }
 
         else if (choice == 8) {
