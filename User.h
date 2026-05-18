@@ -8,6 +8,7 @@ private:
     std::string email;
 
 public:
+    User(); // 컴파일 안정성을 위한 기본 생성자 추가
     User(int id, std::string name, std::string email);
 
     int getId() const;

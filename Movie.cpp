@@ -6,10 +6,15 @@ Movie::Movie()
 Movie::Movie(int id, std::string title, std::string genre, int year)
     : id(id), title(title), genre(genre), year(year), totalRating(0.0), ratingCount(0) {}
 
+Movie::Movie(int id, std::string title, std::string genre, int year, double totalRating, int ratingCount)
+    : id(id), title(title), genre(genre), year(year), totalRating(totalRating), ratingCount(ratingCount) {}
+
 int Movie::getId() const { return id; }
 std::string Movie::getTitle() const { return title; }
 std::string Movie::getGenre() const { return genre; }
 int Movie::getYear() const { return year; }
+double Movie::totalRatingValue() const { return totalRating; }
+int Movie::ratingCountValue() const { return ratingCount; }
 
 double Movie::getAverageRating() const {
     if (ratingCount == 0) return 0.0;

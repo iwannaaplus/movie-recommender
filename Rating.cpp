@@ -1,6 +1,8 @@
 #include "Rating.h"
 #include <iostream>
 
+Rating::Rating() : userId(0), movieId(0), score(0.0) {} // 기본 생성자 초기화 구현
+
 Rating::Rating(int userId, int movieId, double score)
     : userId(userId), movieId(movieId) {
     if (score >= 0.0 && score <= 5.0) {

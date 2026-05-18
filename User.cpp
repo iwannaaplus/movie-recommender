@@ -1,6 +1,8 @@
 #include "User.h"
 #include <iostream>
 
+User::User() : id(0), name(""), email("") {} // 기본 생성자 초기화 구현
+
 User::User(int id, std::string name, std::string email)
     : id(id), name(name), email(email) {}
 
