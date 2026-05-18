@@ -12,6 +12,10 @@ int main() {
     UserManager userManager;
     RatingManager ratingManager;
 
+    manager.loadFromFile("movies.csv");
+    userManager.loadFromFile("users.csv");
+    ratingManager.loadFromFile("ratings.csv");
+
     int choice;
 
     while (true) {
@@ -69,6 +73,10 @@ int main() {
 
         std::cout << std::endl;
     }
+
+    manager.saveToFile("movies.csv");
+    userManager.saveToFile("users.csv");
+    ratingManager.saveToFile("ratings.csv");
 
     return 0;
 }

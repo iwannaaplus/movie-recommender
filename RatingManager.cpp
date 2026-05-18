@@ -1,5 +1,7 @@
 #include "RatingManager.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 void RatingManager::addRating(const Rating& r) {
     ratings.push_back(r);
@@ -28,9 +30,41 @@ void RatingManager::addRatingFromInput() {
 }
 
 void RatingManager::loadFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file.is_open()) return;
+
+    std::string line;
+    std::getline(file, line);
+
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string token;
+
+        std::getline(ss, token, ',');
+        int userId = std::stoi(token);
+
+        std::getline(ss, token, ',');
+        int movieId = std::stoi(token);
+
+        std::getline(ss, token, ',');
+        double score = std::stod(token);
+
+        ratings.push_back(Rating(userId, movieId, score));
+    }
+    file.close();
 }
 
 void RatingManager::saveToFile(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file.is_open()) return;
+
+    file << "userId,movieId,score" << std::endl;
+    for (const auto& r : ratings) {
+        file << r.getUserId() << ","
+             << r.getMovieId() << ","
+             << r.getScore() << std::endl;
+    }
+    file.close();
 }
 
 int RatingManager::size() const {
