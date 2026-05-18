@@ -1,11 +1,15 @@
 #pragma once
 #include <vector>
-#include <string>
 #include "Movie.h"
 #include "MovieManager.h"
 #include "RatingManager.h"
 
 class Recommender {
+private:
+    MovieManager& movieMgr;
+    RatingManager& ratingMgr;
+
 public:
-    static std::vector<Movie> recommend(int targetUserId, MovieManager& movieMgr, RatingManager& ratingMgr);
+    Recommender(MovieManager& mMgr, RatingManager& rMgr);
+    std::vector<Movie> recommend(int targetUserId);
 };

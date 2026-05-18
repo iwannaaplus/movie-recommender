@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Movie.h"
 #include "User.h"
 #include "Rating.h"
@@ -71,7 +72,8 @@ int main() {
             std::cout << "추천을 받을 사용자 ID 입력: ";
             std::cin >> targetUid;
 
-            std::vector<Movie> recs = Recommender::recommend(targetUid, manager, ratingManager);
+            Recommender recommender(manager, ratingManager);
+            std::vector<Movie> recs = recommender.recommend(targetUid);
             if (recs.empty()) {
                 std::cout << "추천할 만한 영화가 없거나 비슷한 사용자를 찾을 수 없습니다." << std::endl;
             } else {
