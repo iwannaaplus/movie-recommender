@@ -119,7 +119,7 @@ void MovieManager::saveToFile(const std::string& filename) const {
         file << m.getId() << ","
              << m.getTitle() << ","
              << m.getGenre() << ","
-             << m.getYear() << ","
+             << m.getReleaseYear() << ","
              << m.totalRatingValue() << ","
              << m.ratingCountValue() << std::endl;
     }

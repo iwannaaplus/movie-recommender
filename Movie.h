@@ -19,7 +19,7 @@ public:
     int getId() const;
     std::string getTitle() const;
     std::string getGenre() const;
-    int getYear() const;
+    int getReleaseYear() const;
     double totalRatingValue() const;
     int ratingCountValue() const;
     double getAverageRating() const;

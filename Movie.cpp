@@ -12,7 +12,7 @@ Movie::Movie(int id, std::string title, std::string genre, int year, double tota
 int Movie::getId() const { return id; }
 std::string Movie::getTitle() const { return title; }
 std::string Movie::getGenre() const { return genre; }
-int Movie::getYear() const { return year; }
+int Movie::getReleaseYear() const { return year; }
 double Movie::totalRatingValue() const { return totalRating; }
 int Movie::ratingCountValue() const { return ratingCount; }
 
