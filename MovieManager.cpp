@@ -66,3 +66,13 @@ void MovieManager::searchMovie() {
     if (m != nullptr) std::cout << *m << std::endl;
     else std::cout << "없음" << std::endl;
 }
+
+void MovieManager::loadFromFile(const std::string& filename) {
+}
+
+void MovieManager::saveToFile(const std::string& filename) const {
+}
+
+int MovieManager::size() const {
+    return movies.size();
+}

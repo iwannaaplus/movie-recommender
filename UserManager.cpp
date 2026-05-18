@@ -28,3 +28,13 @@ void UserManager::addUserFromInput() {
 
     addUser(User(id, name, email));
 }
+
+void UserManager::loadFromFile(const std::string& filename) {
+}
+
+void UserManager::saveToFile(const std::string& filename) const {
+}
+
+int UserManager::size() const {
+    return users.size();
+}

@@ -31,3 +31,13 @@ void RatingManager::addRatingFromInput(MovieManager& manager) {
         m->addRating(score);
     }
 }
+
+void RatingManager::loadFromFile(const std::string& filename) {
+}
+
+void RatingManager::saveToFile(const std::string& filename) const {
+}
+
+int RatingManager::size() const {
+    return ratings.size();
+}

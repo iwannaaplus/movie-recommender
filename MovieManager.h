@@ -2,8 +2,9 @@
 #include <vector>
 #include <string>
 #include "Movie.h"
+#include "BaseManager.h"
 
-class MovieManager {
+class MovieManager : public BaseManager {
 private:
     std::vector<Movie> movies;
 
@@ -16,4 +17,8 @@ public:
 
     void addMovieFromInput();
     void searchMovie();
+
+    void loadFromFile(const std::string& filename) override;
+    void saveToFile(const std::string& filename) const override;
+    int size() const override;
 };
