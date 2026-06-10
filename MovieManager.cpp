@@ -1,19 +1,18 @@
 #include "MovieManager.h"
 #include "MovieConstants.h"
-#include "Timer.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
 #include <stdexcept>
+#include <numeric>
 
 void MovieManager::addMovie(const Movie& m) { movies.push_back(m); }
 
-void MovieManager::printAll() const {
-    Timer t("printAll");
-    for (const auto& m : movies) {
-        std::cout << m << std::endl;
-    }
+void MovieManager::printAll() const { 
+    for (const auto& m : movies) { 
+        std::cout << m << std::endl; 
+    } 
 }
 
 Movie& MovieManager::findByTitle(const std::string& title) {
@@ -35,17 +34,16 @@ void MovieManager::sortByRating() { std::sort(movies.begin(), movies.end()); }
 void MovieManager::addMovieFromInput() {
     int id, year;
     std::string title, genre;
-    std::cout << "ID: "; std::cin >> id; std::cin.ignore();
+    std::cout << "ID: "; std::cin >> id; std::cin.ignore(10000, '\n');
     std::cout << "제목: "; std::getline(std::cin, title);
     std::cout << "장르: "; std::getline(std::cin, genre);
-    std::cout << "연도: "; std::cin >> year;
+    std::cout << "연도: "; std::cin >> year; std::cin.ignore(10000, '\n');
     addMovie(Movie(id, title, genre, year));
 }
 
 void MovieManager::searchMovie() {
-    Timer t("searchMovie");
     std::string title;
-    std::cin.ignore();
+    std::cin.ignore(10000, '\n');
     std::cout << "검색할 제목: ";
     std::getline(std::cin, title);
 
@@ -72,12 +70,17 @@ void MovieManager::loadFromFile(const std::string& filename) {
         throw std::runtime_error("파일을 열 수 없습니다: " + filename);
     }
 
+    movies.clear();
     std::string line;
-    std::getline(file, line);
-    int lineNum = 1;
+    std::getline(file, line); 
 
     while (std::getline(file, line)) {
-        lineNum++;
+        if (line.empty()) continue;
+        if (line.back() == '\r') {
+            line.pop_back();
+        }
+        if (line.empty()) continue;
+
         try {
             std::stringstream ss(line);
             std::string token;
@@ -90,10 +93,8 @@ void MovieManager::loadFromFile(const std::string& filename) {
             std::getline(ss, token, ','); int ratingCount = std::stoi(token);
 
             movies.push_back(Movie(id, title, genre, year, totalRating, ratingCount));
-        } catch (const std::invalid_argument& e) {
-            std::cerr << lineNum << "번 줄 데이터 파싱 오류로 건너뜀: " << e.what() << std::endl;
-        } catch (const std::out_of_range& e) {
-            std::cerr << lineNum << "번 줄 숫자 범위 초과로 건너뜀: " << e.what() << std::endl;
+        } catch (...) {
+            continue;
         }
     }
     file.close();
@@ -111,3 +112,72 @@ void MovieManager::saveToFile(const std::string& filename) const {
 }
 
 int MovieManager::size() const { return movies.size(); }
+
+double MovieManager::getAverageRating() const {
+    if (movies.empty()) return 0.0;
+    double sum = 0.0;
+    for (const auto& m : movies) {
+        sum += m.getAverageRating();
+    }
+    return sum / movies.size();
+}
+
+std::map<std::string, double> MovieManager::getAverageRatingByGenre() const {
+    std::map<std::string, double> sumByGenre;
+    std::map<std::string, int> countByGenre;
+
+    for (const auto& movie : movies) {
+        if (movie.getGenre().empty()) continue;
+        sumByGenre[movie.getGenre()] += movie.getAverageRating();
+        countByGenre[movie.getGenre()]++;
+    }
+
+    std::map<std::string, double> avgByGenre;
+    for (const auto& [genre, sum] : sumByGenre) {
+        if (countByGenre[genre] > 0) {
+            avgByGenre[genre] = sum / countByGenre[genre];
+        }
+    }
+    return avgByGenre;
+}
+
+std::vector<Movie> MovieManager::getTopN(int n) const {
+    auto sorted = movies;
+    std::sort(sorted.begin(), sorted.end(), [](const Movie& a, const Movie& b) {
+        return a.getAverageRating() > b.getAverageRating();
+    });
+
+    if (n > static_cast<int>(sorted.size())) {
+        n = sorted.size();
+    }
+    return std::vector<Movie>(sorted.begin(), sorted.begin() + n);
+}
+
+void MovieManager::exportStatisticsToCSV(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("통계 파일을 생성할 수 없습니다: " + filename);
+    }
+
+    file << "Metric,Key,Value" << std::endl;
+    file << "System,AverageRating," << getAverageRating() << std::endl;
+
+    auto avgGenre = getAverageRatingByGenre();
+    for (const auto& [genre, avg] : avgGenre) {
+        file << "GenreAverage," << genre << "," << avg << std::endl;
+    }
+
+    auto top10 = getTopN(10);
+    for (size_t i = 0; i < top10.size(); ++i) {
+        file << "Top10_Rank_" << i + 1 << "," << top10[i].getTitle() << "," << top10[i].getAverageRating() << std::endl;
+    }
+
+    file.flush();
+    file.close();
+}
+
+void MovieManager::sortByTitle() {
+    std::sort(movies.begin(), movies.end(), [](const Movie& a, const Movie& b) {
+        return a.getTitle() < b.getTitle();
+    });
+}

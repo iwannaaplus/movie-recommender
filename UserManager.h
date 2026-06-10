@@ -11,10 +11,14 @@ private:
 public:
     void addUser(const User& u);
     void printAll() const;
-
+    
+    User& findById(int id);
+    
     void addUserFromInput();
 
     void loadFromFile(const std::string& filename) override;
     void saveToFile(const std::string& filename) const override;
     int size() const override;
+
+    const std::vector<User>& getUsers() const { return users; }
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <map>
 #include "Movie.h"
 #include "BaseManager.h"
 
@@ -24,4 +25,10 @@ public:
     void loadFromFile(const std::string& filename) override;
     void saveToFile(const std::string& filename) const override;
     int size() const override;
+
+    double getAverageRating() const;
+    std::map<std::string, double> getAverageRatingByGenre() const;
+    std::vector<Movie> getTopN(int n) const;
+    void exportStatisticsToCSV(const std::string& filename) const;
+    void sortByTitle();
 };
