@@ -11,8 +11,10 @@ private:
 public:
     void addMovie(const Movie& m);
     void printAll() const;
-    Movie* findByTitle(const std::string& title);
-    Movie* findById(int id);
+    
+    Movie& findByTitle(const std::string& title);
+    Movie& findById(int id);
+    
     void sortByRating();
 
     void addMovieFromInput();

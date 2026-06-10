@@ -1,4 +1,5 @@
 #include "SimilarityCalculator.h"
+#include "MovieConstants.h"
 #include <cstdlib>
 
 int SimilarityCalculator::Similaritycalculate(const std::vector<Rating>& ratingsA, const std::vector<Rating>& ratingsB) {
@@ -15,8 +16,8 @@ int SimilarityCalculator::Similaritycalculate(const std::vector<Rating>& ratings
     }
 
     if (commonCount == 0) {
-        return -100;
+        return MovieConstants::INVALID_SIMILARITY;
     }
 
-    return (commonCount * 10) - scoreDiffSum;
+    return (commonCount * MovieConstants::COMMON_MOVIE_WEIGHT) - scoreDiffSum;
 }
