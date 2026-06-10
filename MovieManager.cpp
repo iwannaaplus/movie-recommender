@@ -1,5 +1,6 @@
 #include "MovieManager.h"
 #include "MovieConstants.h"
+#include "Timer.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -7,7 +8,13 @@
 #include <stdexcept>
 
 void MovieManager::addMovie(const Movie& m) { movies.push_back(m); }
-void MovieManager::printAll() const { for (const Movie& m : movies) { std::cout << m << std::endl; } }
+
+void MovieManager::printAll() const {
+    Timer t("printAll");
+    for (const auto& m : movies) {
+        std::cout << m << std::endl;
+    }
+}
 
 Movie& MovieManager::findByTitle(const std::string& title) {
     for (Movie& m : movies) {
@@ -36,6 +43,7 @@ void MovieManager::addMovieFromInput() {
 }
 
 void MovieManager::searchMovie() {
+    Timer t("searchMovie");
     std::string title;
     std::cin.ignore();
     std::cout << "검색할 제목: ";

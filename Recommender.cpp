@@ -1,12 +1,14 @@
 #include "Recommender.h"
 #include "SimilarityCalculator.h"
 #include "MovieConstants.h"
+#include "Timer.h"
 #include <algorithm>
 
 Recommender::Recommender(MovieManager& mMgr, RatingManager& rMgr) 
     : movieMgr(mMgr), ratingMgr(rMgr) {}
 
 std::vector<Movie> Recommender::recommend(int targetUserId) {
+    Timer t("recommend");
     std::vector<Movie> recommendations;
 
     auto myRatings = getTargetUserRatings(targetUserId);

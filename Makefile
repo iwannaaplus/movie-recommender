@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall
+CXXFLAGS = -std=c++17 -Wall -O2
 
 TARGET = app
 
@@ -15,9 +15,9 @@ main.o: main.cpp Movie.h User.h Rating.h
 Movie.o: Movie.cpp Movie.h
 User.o: User.cpp User.h
 Rating.o: Rating.cpp Rating.h
-MovieManager.o: MovieConstants.h
+MovieManager.o: MovieConstants.h Timer.h
 SimilarityCalculator.o: MovieConstants.h
-Recommender.o: MovieConstants.h
+Recommender.o: MovieConstants.h Timer.h
 
 clean:
 	rm -f $(OBJS) $(TARGET)
